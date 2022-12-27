@@ -19,7 +19,18 @@ if cfg_enable_url_download:
 ## END OF CFG
 
 
-
+def expand2square(pil_img, background_color):
+    width, height = pil_img.size
+    if width == height:
+        return pil_img
+    elif width > height:
+        result = Image.new(pil_img.mode, (width, width), background_color)
+        result.paste(pil_img, (0, (width-height)//2))
+        return result
+    else:
+        result = Image.new(pil_img.mode, (height, height), background_color)
+        result.paste(pil_img, (0, (height - width) // 2))
+        return result
 
 
 
@@ -30,6 +41,7 @@ def imageInput(device, src):
         col1, col2 = st.columns(2)
         if image_file is not None:
             img = Image.open(image_file)
+            img = expand2square(img, (0, 0, 0)).resize((417, 417))
             with col1:
                 st.image(img, caption='Uploaded Image', use_column_width='always')
             ts = datetime.timestamp(datetime.now())
