@@ -10,7 +10,7 @@ import wget
 import time
 
 ## CFG
-cfg_model_path = "models/yourModel.pt" 
+cfg_model_path = "models/last.pt" 
 
 cfg_enable_url_download = True
 if cfg_enable_url_download:
